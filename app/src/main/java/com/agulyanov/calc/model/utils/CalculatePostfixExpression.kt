@@ -45,6 +45,7 @@ class CalculatePostfixExpression {
                 it == "/" -> {
                     val secondOperand = stack.pop().toFloat()
                     val firstOperand = stack.pop().toFloat()
+                    if (firstOperand.equals(0.0f)) return "Деление на ноль!"
                     stack.push((firstOperand / secondOperand).toString())
                 }
             }
