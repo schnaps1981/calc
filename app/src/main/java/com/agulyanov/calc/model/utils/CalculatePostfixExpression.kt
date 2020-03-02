@@ -18,7 +18,10 @@ class CalculatePostfixExpression {
             when {
                 it.isOperand() -> stack.push(it)
 
-                it == "@" -> stack.push(-stack.pop() )
+                it == "@" -> {
+                    val firstOperand = stack.pop().toFloat() * -1.0
+                    stack.push(firstOperand.toString() )
+                }
 
 
                 it == "+" -> {
