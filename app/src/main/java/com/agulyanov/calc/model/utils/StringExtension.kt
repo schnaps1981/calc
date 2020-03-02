@@ -1,13 +1,18 @@
 package com.agulyanov.calc.model.utils
 
 import com.agulyanov.calc.app.Constants
+import java.lang.NumberFormatException
 
 
-//TODO улучишть механику опрпеделенния того, что это число
-fun String.isOperand() = this.contains(Constants.NUMBERS_REGEXP.toRegex())
+//fun String.isOperand() = this.contains(Constants.NUMBERS_REGEXP.toRegex())
+fun String.isOperand() : Boolean =
+    try {
+        this.toFloat().let { true }
+    } catch (e: NumberFormatException) {
+        false
+    }
 
-fun String.isOperator() =
-    this.contains("+") || this.contains("-") || this.contains("*") || this.contains("/")
+fun String.isOperator() = Constants.OPN_OPERATOR_SYMBOLS.contains(this)
 
 fun String.isOpenBracket() = this == "("
 
@@ -20,6 +25,6 @@ fun String.isUnaryMinus(currIt: String, prevIt: String): Boolean {
     return (currIt == "-" && prevIt == "") || (prevIt != ")" && isDelimiter(prevIt))
 }
 
-fun isDelimiter(prevIt: String): Boolean {
-    return Constants.DELIMITERS.contains(prevIt)
+fun isDelimiter(arg: String): Boolean {
+    return Constants.OPERATORS.plus(Constants.BRACKETS).contains(arg)
 }

@@ -9,7 +9,9 @@ object Constants {
 
     //Операторы и разделители
     const val OPERATORS = "+-*/"
-    const val DELIMITERS = "() $OPERATORS"
+    const val BRACKETS = "()"
+    const val SPACES = " "
+
 
     //Приоритеты операций
     const val PRIORITY_NOT_DEFINDED = -1
@@ -21,5 +23,13 @@ object Constants {
     const val PRIORITY_COMP_LESS_GREAT = 10
     const val PRIORITY_COMP_EQUAL_NOTEQUAL = 11
     const val PRIORITY_TERNARY = 12
+
+    //Символы операторов для ОПЗ
+    const val OPN_UNARY_MINUS = "@"
+
+
+    const val OPN_OPERATOR_SYMBOLS =
+        OPERATORS +
+        OPN_UNARY_MINUS
 
 }

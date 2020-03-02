@@ -10,8 +10,8 @@ class PrimaryCheckSyntax {
 
     fun check(expression: String): Boolean {
 
-        //TODO если последний символ оператор, выражение некорректно
-
+        //если последний символ оператор, выражение некорректно
+        if (Constants.OPERATORS.contains(expression.trim(*Constants.SPACES.toCharArray()).last())) return false
 
         val isValidSymbols = with(expression) {
             // здесь важен порядок удаления!

@@ -48,18 +48,6 @@ class CalculatePostfixExpression {
         }
         return stack.pop()
     }
-
-//    //TODO улучишть механику опрпеделенния того, что это число
-//    private fun String.isOperand() = this.contains(Constants.NUMBERS_REGEXP.toRegex())
-//
-//    private fun String.isOperator() =
-//        this.contains("+") || this.contains("-") || this.contains("*") || this.contains("/")
-//
-//    private fun String.isOpenBracket() = this == "("
-//
-//    private fun String.isCloseBracket() = this == ")"
-//
-//    private operator fun String.unaryMinus() = "-$this"
 }
 
 

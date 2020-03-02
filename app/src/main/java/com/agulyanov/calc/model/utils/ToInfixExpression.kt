@@ -13,9 +13,10 @@ class ToInfixExpression {
         var prevIt = ""
         expression.forEach {
             when {
-                it.isOperand() -> result.append(it).append(" ")
+                it.isOperand() -> result.append(it).append(Constants.SPACES[0])
 
-                it.isOpenBracket() -> stack.push(it)
+                it.isOpenBracket() ->
+                    stack.push(it)
 
                 it.isCloseBracket() -> {
                     var topStackItem = stack.pop()
@@ -23,26 +24,22 @@ class ToInfixExpression {
                     while (topStackItem != "(") {
                         if (stack.isEmpty()) return "Ошибка! Не согласованы скобки, или ошибка в выражении!"
 
-                        result.append(topStackItem).append(" ")
+                        result.append(topStackItem).append(Constants.SPACES[0])
                         topStackItem = stack.pop()
 
                     }
                 }
+                it.isOperator().and(it.isUnaryMinus(it, prevIt)) ->
+                    stack.push(Constants.OPN_UNARY_MINUS)
 
-                it.isOperator() -> {
-                    if (it.isUnaryMinus(it, prevIt)) {
-                        stack.push("@")
-                    } else {
-
-                        val itPriority = OperationPriority.priority(it)
-                        var stackPriority = OperationPriority.priority(stack.peek())
-                        while (stackPriority >= itPriority && !stack.isEmpty()) {
-
-                            result.append(stack.pop()).append(" ")
-                            stackPriority = OperationPriority.priority(stack.peek())
-                        }
-                        stack.push(it)
+                it.isOperator().and(!it.isUnaryMinus(it, prevIt)) -> {
+                    val itPriority = OperationPriority.priority(it)
+                    var stackPriority = OperationPriority.priority(stack.peek())
+                    while (stackPriority >= itPriority && !stack.isEmpty()) {
+                        result.append(stack.pop()).append(Constants.SPACES[0])
+                        stackPriority = OperationPriority.priority(stack.peek())
                     }
+                    stack.push(it)
                 }
             }
 
@@ -50,34 +47,11 @@ class ToInfixExpression {
         }
 
         while (!stack.isEmpty()) {
-            if (stack.peek().isOperator()) result.append(stack.pop()).append(" ") else return "Ошибка! Не согласованы скобки, или ошибка в выражении!"
+            if (stack.peek().isOperator()) result.append(stack.pop()).append(Constants.SPACES[0]) else return "Ошибка! Не согласованы скобки, или ошибка в выражении!"
         }
 
         return result.toString()
     }
-
-//        private fun isOperand(value: String) =
-//            value.contains("[0-9]".toRegex())
-
-
-//    //TODO улучишть механику опрпеделенния того, что это число
-//    private fun String.isOperand() = this.contains(Constants.NUMBERS_REGEXP.toRegex())
-//
-//    private fun String.isOperator() =
-//        this.contains("+") || this.contains("-") || this.contains("*") || this.contains("/")
-//
-//    private fun String.isOpenBracket() = this == "("
-//
-//    private fun String.isCloseBracket() = this == ")"
-//
-//    //Унарный минус это символ "минус" в начале выражения либо после любого любого разделителя (в том числе "(" или символа операции), кроме ")" )
-//    private fun String.isUnaryMinus(currIt: String, prevIt: String): Boolean {
-//        return (currIt == "-" && prevIt == "") || (prevIt != ")" && isDelimiter(prevIt))
-//    }
-//
-//    private fun isDelimiter(prevIt: String) : Boolean {
-//        return delimiters.contains(prevIt)
-//    }
 
 }
 

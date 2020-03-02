@@ -1,10 +1,23 @@
 package com.agulyanov.calc.model.utils
 
+import com.agulyanov.calc.app.Constants
+import java.util.*
+
 class TokenizeExpression {
-    //TODO сделать разделение на лексемы не только пробелом, а так же скобокой и оператором
     companion object {
         fun from(expression: String): Array<String> {
-            return expression.split(" ").map { it.trim() }.toTypedArray()
+            val result: MutableList<String> = mutableListOf()
+            val tokens = StringTokenizer(
+                expression,
+                Constants.OPERATORS.plus(Constants.BRACKETS).plus(Constants.SPACES),
+                true
+            )
+            while (tokens.hasMoreTokens()) {
+                val token = tokens.nextToken()
+                if (!Constants.SPACES.contains(token))
+                    result.add(token)
+            }
+            return result.toTypedArray()
         }
     }
 }
