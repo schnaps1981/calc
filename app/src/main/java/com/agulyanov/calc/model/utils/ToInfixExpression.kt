@@ -13,7 +13,7 @@ class ToInfixExpression {
         var prevIt = ""
         expression.forEach {
             when {
-                it.isOperand() -> result.append(it).append(Constants.SPACES[0])
+                it.isNumber() -> result.append(it).append(Constants.SPACES[0])
 
                 it.isOpenBracket() ->
                     stack.push(it)
@@ -30,7 +30,7 @@ class ToInfixExpression {
                     }
                 }
                 it.isOperator().and(it.isUnaryMinus(it, prevIt)) ->
-                    stack.push(Constants.OPN_UNARY_MINUS)
+                    stack.push(Constants.RPN_UNARY_MINUS)
 
                 it.isOperator().and(!it.isUnaryMinus(it, prevIt)) -> {
                     val itPriority = OperationPriority.priority(it)

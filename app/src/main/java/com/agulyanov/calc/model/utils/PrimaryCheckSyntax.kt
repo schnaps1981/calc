@@ -1,17 +1,13 @@
 package com.agulyanov.calc.model.utils
 
 import com.agulyanov.calc.app.Constants
-import com.agulyanov.calc.model.stack.Stack
-import com.agulyanov.calc.model.stack.StackImpl
 
 class PrimaryCheckSyntax {
-
-    private var stack: Stack = StackImpl()
 
     fun check(expression: String): Boolean {
 
         //если последний символ оператор, выражение некорректно
-        if (Constants.OPERATORS.contains(expression.trim(*Constants.SPACES.toCharArray()).last())) return false
+        if (expression.trim(*Constants.SPACES.toCharArray()).last().toString().isOperator()) return false
 
         val isValidSymbols = with(expression) {
             // здесь важен порядок удаления!
@@ -24,30 +20,15 @@ class PrimaryCheckSyntax {
                     ""
                 ) //Удаляем пробелы, стандартные символы арифметических операторов и скобки
 
-                //Удалить символы логических операторов. здесь важен порядок удаления!
-                .replace("==", "")
-                .replace(">=", "")
-                .replace("<=", "")
-                .replace("!=", "")
-                .replace(Constants.LOGIC_OPERATORS_REGEXP.toRegex(), "")
+                //Удалить символы тернарного и логических операторов.
+                //.replace(Constants.LOGIC_OPERATORS_REGEXP.toRegex(), "")
         }
 
         //проверка сочетаемости скобок
-        val isBracketsEqualAmount = {
-            var result = true
-            expression.forEach {
-                if (it == '(') stack.push(it.toString())
-                if (it == ')')
-                    if (stack.isEmpty())
-                        result = false
-                    else
-                        stack.pop()
-            }
-            if (!stack.isEmpty()) result = false
-            result
-        }
+        val isBracketsEqualAmount = EqualAmount.check(expression, '(', ')')
+        val isTernaryEqualAmount = EqualAmount.check(expression, '?', ':')
 
-        return isValidSymbols.isEmpty() && isBracketsEqualAmount()
+        return isValidSymbols.isEmpty() && isBracketsEqualAmount && isTernaryEqualAmount
     }
 
 

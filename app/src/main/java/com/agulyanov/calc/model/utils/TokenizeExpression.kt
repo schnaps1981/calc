@@ -7,16 +7,23 @@ class TokenizeExpression {
     companion object {
         fun from(expression: String): Array<String> {
             val result: MutableList<String> = mutableListOf()
+
             val tokens = StringTokenizer(
                 expression,
-                Constants.OPERATORS.plus(Constants.BRACKETS).plus(Constants.SPACES),
+                Constants.OPERATORS_PLUS_MINUS
+                    .plus(Constants.OPERATORS_MUL_DIV)
+                    .plus(Constants.BRACKETS)
+                    .plus(Constants.SPACES)
+                    .plus(Constants.TERNARY_OPERATOR),
                 true
             )
-            while (tokens.hasMoreTokens()) {
-                val token = tokens.nextToken()
-                if (!Constants.SPACES.contains(token))
-                    result.add(token)
+            loop@ while (tokens.hasMoreTokens()) {
+                when (val token = tokens.nextToken()) {
+                    Constants.SPACES -> continue@loop
+                    else -> result.add(token)
+                }
             }
+
             return result.toTypedArray()
         }
     }
