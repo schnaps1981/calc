@@ -1,10 +1,9 @@
-package com.agulyanov.calc.view
+package com.agulyanov.calc.ui.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
 import com.agulyanov.calc.R
-import com.agulyanov.calc.presenter.Presenter
+import com.agulyanov.calc.ui.presenter.Presenter
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(), ViewContract {

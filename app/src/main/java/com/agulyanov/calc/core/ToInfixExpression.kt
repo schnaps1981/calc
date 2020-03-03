@@ -1,8 +1,10 @@
-package com.agulyanov.calc.model.utils
+package com.agulyanov.calc.core
 
 import com.agulyanov.calc.app.Constants
-import com.agulyanov.calc.model.stack.Stack
-import com.agulyanov.calc.model.stack.StackImpl
+import com.agulyanov.calc.extensions.*
+import com.agulyanov.calc.core.stack.Stack
+import com.agulyanov.calc.core.stack.StackImpl
+import com.agulyanov.calc.core.utils.OperationPriority
 
 class ToInfixExpression {
     private var stack: Stack = StackImpl()
@@ -33,13 +35,22 @@ class ToInfixExpression {
                     stack.push(Constants.RPN_UNARY_MINUS)
 
                 it.isOperator().and(!it.isUnaryMinus(it, prevIt)) -> {
-                    val itPriority = OperationPriority.priority(it)
-                    var stackPriority = OperationPriority.priority(stack.peek())
+                    val itPriority =
+                        OperationPriority.priority(
+                            it
+                        )
+                    var stackPriority =
+                        OperationPriority.priority(
+                            stack.peek()
+                        )
                     while (stackPriority >= itPriority && !stack.isEmpty()) {
                         result.append(stack.pop()).append(Constants.SPACES[0])
-                        stackPriority = OperationPriority.priority(stack.peek())
+                        stackPriority =
+                            OperationPriority.priority(
+                                stack.peek()
+                            )
                     }
-                    stack.push(it)
+                    if (!it.isTernaryElse()) stack.push(it) //Тернарное "если" в стек не ложится
                 }
             }
 
@@ -54,6 +65,10 @@ class ToInfixExpression {
     }
 
 }
+
+
+
+
 
 
 

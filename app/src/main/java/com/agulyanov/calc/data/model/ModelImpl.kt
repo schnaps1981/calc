@@ -1,9 +1,9 @@
-package com.agulyanov.calc.model
+package com.agulyanov.calc.data.model
 
-import com.agulyanov.calc.model.utils.CalculatePostfixExpression
-import com.agulyanov.calc.model.utils.ToInfixExpression
-import com.agulyanov.calc.model.utils.PrimaryCheckSyntax
-import com.agulyanov.calc.model.utils.TokenizeExpression
+import com.agulyanov.calc.core.CalculatePostfixExpression
+import com.agulyanov.calc.core.ToInfixExpression
+import com.agulyanov.calc.core.utils.PrimaryCheckSyntax
+import com.agulyanov.calc.core.utils.TokenizeExpression
 
 class ModelImpl : ModelContract {
     private val expressionChecker : PrimaryCheckSyntax = PrimaryCheckSyntax()
@@ -22,7 +22,8 @@ class ModelImpl : ModelContract {
         if (infixExpression.contains("Ошибка"))
             return infixExpression
         else
-            calculatePostfix = CalculatePostfixExpression().calculate(infixExpression)
+            calculatePostfix = CalculatePostfixExpression()
+                .calculate(infixExpression)
 
         return calculatePostfix
     }

@@ -1,10 +1,8 @@
-package com.agulyanov.calc.presenter
+package com.agulyanov.calc.ui.presenter
 
-import com.agulyanov.calc.model.ModelImpl
-import com.agulyanov.calc.model.ModelContract
-import com.agulyanov.calc.model.stack.Stack
-import com.agulyanov.calc.model.stack.StackImpl
-import com.agulyanov.calc.view.ViewContract
+import com.agulyanov.calc.data.model.ModelImpl
+import com.agulyanov.calc.data.model.ModelContract
+import com.agulyanov.calc.ui.view.ViewContract
 
 class Presenter {
 

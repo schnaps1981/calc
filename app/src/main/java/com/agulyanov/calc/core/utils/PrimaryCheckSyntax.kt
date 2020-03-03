@@ -1,6 +1,7 @@
-package com.agulyanov.calc.model.utils
+package com.agulyanov.calc.core.utils
 
 import com.agulyanov.calc.app.Constants
+import com.agulyanov.calc.extensions.isOperator
 
 class PrimaryCheckSyntax {
 
@@ -21,7 +22,7 @@ class PrimaryCheckSyntax {
                 ) //Удаляем пробелы, стандартные символы арифметических операторов и скобки
 
                 //Удалить символы тернарного и логических операторов.
-                //.replace(Constants.LOGIC_OPERATORS_REGEXP.toRegex(), "")
+                .replace(Constants.LOGIC_OPERATORS_REGEXP.toRegex(), "")
         }
 
         //проверка сочетаемости скобок

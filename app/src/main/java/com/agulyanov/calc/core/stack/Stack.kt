@@ -1,4 +1,4 @@
-package com.agulyanov.calc.model.stack
+package com.agulyanov.calc.core.stack
 
 interface Stack {
     fun push(item : String) //Положить в стек элемент

@@ -1,7 +1,7 @@
 package com.agulyanov.calc
 
-import com.agulyanov.calc.model.stack.Stack
-import com.agulyanov.calc.model.stack.StackImpl
+import com.agulyanov.calc.core.stack.Stack
+import com.agulyanov.calc.core.stack.StackImpl
 import org.junit.Test
 
 import org.junit.Assert.*

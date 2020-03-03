@@ -1,4 +1,4 @@
-package com.agulyanov.calc.model.stack
+package com.agulyanov.calc.core.stack
 
 class StackImpl : Stack{
 

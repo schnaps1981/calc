@@ -1,7 +1,7 @@
-package com.agulyanov.calc.model.utils
+package com.agulyanov.calc.core.utils
 
-import com.agulyanov.calc.model.stack.Stack
-import com.agulyanov.calc.model.stack.StackImpl
+import com.agulyanov.calc.core.stack.Stack
+import com.agulyanov.calc.core.stack.StackImpl
 
 class EqualAmount {
     companion object {

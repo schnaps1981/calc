@@ -1,4 +1,4 @@
-package com.agulyanov.calc.view
+package com.agulyanov.calc.ui.view
 
 interface ViewContract {
     fun showResult(message : Int)
